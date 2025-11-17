@@ -10,7 +10,10 @@ const sidebar = document.querySelector('aside');
 
 // Array to store all workers
 let workers = [];
-
+let data = {
+    preview: {},
+    exp: []
+};
 
 
 // Function to display workers in sidebar
@@ -90,10 +93,7 @@ if (formExperience) {
 if (workerForm) {
     workerForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const data = {
-            preview: {},
-            exp: [],
-        };
+       
         
         let valid = true;
         
@@ -216,3 +216,48 @@ errorPhone.textContent = "";
         }
     });
 }
+
+
+// experience
+const btnExperience = document.getElementById("btnExperience");
+
+btnExperience.addEventListener('click', (e) => {
+    e.preventDefault();
+    const companyExperience = document.getElementById("companyExperience").value;
+    const roleExperience= document.getElementById("roleExperience").value;
+    const from = document.getElementById("from").value;
+    const to = document.getElementById("to").value;
+    
+    if (!companyExperience || !roleExperience || !from || !to ) {
+        alert("Please fill in all the fields.");
+        return;
+    }
+
+    data.exp.push({ companyExperience,roleExperience,from,to});
+
+    const list = document.getElementById("listExperience");
+    const li = document.createElement("li");
+    li.className = "w-full flex flex-col";
+
+    li.innerHTML = `
+        <div class="flex items-center justify-between border border-green-200 w-full bg-bleu-200 text-black-500 p-2 m-2 rounded-lg shadow-sm">
+            <span class="font-medium">Company: <span class="text-gray-500">${companyExperience}</span><br>Role: <span class="text-gray-500">${roleExperience}</span><br>From:<span class="text-gray-500">${from}</span> To:<span class="text-gray-500">${to}</span></span>
+            <div class="flex gap-2">
+                <button class="btn px-3 py-1 bg-red-600 text-white rounded-md text-sm hover:bg-red-800">supprimer</button>
+            </div>
+        </div>
+    `;
+
+    li.querySelector("button").addEventListener('click', () => {
+        const idx = data.exp.findIndex(e => e.roleExperience ===roleExperience && e.companyExperience === companyExperience);
+        if (idx > -1) data.exp.splice(idx, 1);
+        li.remove();
+    });
+
+    list.appendChild(li);
+    document.getElementById("companyExperience").value = "";
+    document.getElementById("roleExperience").value = "";
+    document.getElementById("from").value = "";
+    document.getElementById("to").value = "";
+   
+});

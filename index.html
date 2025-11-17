@@ -92,27 +92,35 @@
                         class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="Image url">
                 </div>
-               
-                 <button type="button" id="addExperienceBtn"
-                            class="bg-orange-600 hover:bg-orange-400 rounded px-4 py-2 text-white w-full">
-                            Add Experience
-                        </button>
+
+                <button type="button" id="addExperienceBtn"
+                    class="bg-orange-600 hover:bg-orange-400 rounded px-4 py-2 text-white w-full">
+                    Add Experience
+                </button>
                 <div id="formExperience" class="hidden  flex items-center justify-center">
- 
+
                     <div id="experienceSection" class="space-y-3 w-full bg-gray-50 p-4 rounded-lg">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Company:</label>
-                            <input type="text"
-                                class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                placeholder="Enter company" id="company">
-                            <span id="errorCompany" class="text-red-600"> </span>
+                        <div class="relative">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Company:</label>
+                                <input type="text"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    placeholder="Enter company" id="companyExperience">
+                                <span id="errorCompany" class="text-red-600"> </span>
+
+                                <button type="button" id="btnExperience"
+                                    class="bg-blue-500 text-white absolute top-[-27px] right-0 px-4 py-2 rounded">+</button>
+
+
+
+                            </div>
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Role:</label>
                             <input type="text"
                                 class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                placeholder="Enter role" id="role">
+                                placeholder="Enter role" id="roleExperience">
                             <span id="errorRole" class="text-red-600"> </span>
                         </div>
 
@@ -132,7 +140,8 @@
                             <span id="error-to" class="text-red-600"> </span>
                         </div>
 
-                       
+                        <ul id="listExperience"></ul>
+
                     </div>
                 </div>
 
