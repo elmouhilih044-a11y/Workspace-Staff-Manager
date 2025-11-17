@@ -1,0 +1,54 @@
+.parent {
+    background-image: url(images/plan.webp);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: grid;
+    grid-template-columns: minmax(345px, 1fr) 135px repeat(2, minmax(95px, 1fr));
+    grid-template-rows: repeat(3, 1fr);
+    width: 100%;
+    gap: 20px;
+    margin: 1rem;
+
+    grid-template-areas:
+        "salleConference . salleServeurs salleSecurite"
+        "salleReception . . ."
+        "salleReception . sallePersonnel salleArchives";
+}
+
+
+#salleConference {
+    grid-area: salleConference;
+    background-color: rgba(0, 246, 246, 0);
+    width: 100%;
+}
+
+#salleReception {
+    grid-area: salleReception;
+    background-color: rgba(0, 246, 246, 0);
+    width: 100%;
+}
+
+#salleServeurs {
+    grid-area: salleServeurs;
+    background-color: rgba(0, 246, 246, 0);
+    width: 100%;
+}
+
+#salleSecurite {
+    grid-area: salleSecurite;
+    background-color: rgba(0, 246, 246, 0);
+    width: 100%;
+}
+
+#sallePersonnel {
+    grid-area: sallePersonnel;
+    background-color: rgba(0, 246, 246, 0);
+    width: 100%;
+}
+
+#salleArchives {
+    grid-area: salleArchives;
+    background-color: rgba(0, 246, 246, 0);
+    width: 100%;
+}
