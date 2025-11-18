@@ -93,10 +93,7 @@
                         placeholder="Image url">
                 </div>
 
-                <button type="button" id="addExperienceBtn"
-                    class="bg-orange-600 hover:bg-orange-400 rounded px-4 py-2 text-white w-full">
-                    Add Experience
-                </button>
+                
                 <div id="formExperience" class="hidden  flex items-center justify-center">
 
                     <div id="experienceSection" class="space-y-3 w-full bg-gray-50 p-4 rounded-lg">
@@ -129,7 +126,7 @@
                             <input type="date"
                                 class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 placeholder="mm/dd/yy" id="from">
-                            <span id="error-from" class="text-red-600"> </span>
+                            <span id="errorFrom" class="text-red-600"> </span>
                         </div>
 
                         <div>
@@ -137,13 +134,17 @@
                             <input type="date"
                                 class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 placeholder="mm/dd/yy" id="to">
-                            <span id="error-to" class="text-red-600"> </span>
+                            <span id="errorTo" class="text-red-600"> </span>
                         </div>
 
                         <ul id="listExperience"></ul>
 
                     </div>
                 </div>
+                <button type="button" id="addExperienceBtn"
+                    class="bg-orange-600 hover:bg-orange-400 rounded px-4 py-2 text-white w-full">
+                    Add Experience
+                </button>
 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Email:</label>

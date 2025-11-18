@@ -134,19 +134,19 @@ if (workerForm) {
         }
         
         // Validation company
-        const company = document.getElementById("company").value;
+        const companyExperience = document.getElementById("companyExperience").value;
         const errorCompany = document.getElementById("errorCompany");
         const regexCompany = /^[A-Za-z\s]+$/;
         
-        if (company === "") {
+        if (companyExperience === "") {
             errorCompany.textContent = "Please enter your company";
             valid = false;
-        } else if (!regexCompany.test(company)) {
+        } else if (!regexCompany.test(companyExperience)) {
             errorCompany.textContent = "Please enter your company with letters only";
             valid = false;
         } else {
             errorCompany.textContent = "";
-            data.preview.company = company;
+            data.preview.companyExperience = companyExperience;
         }
         
         const email = document.getElementById("email").value;
@@ -179,6 +179,31 @@ if (workerForm) {
             errorPhone.textContent = "";
             data.preview.phone = phone;
         }
+//validation date
+
+const from=document.getElementById("from").value;
+const errorFrom=document.getElementById("errorFrom");
+const to=document.getElementById("to").value;
+const errorTo=document.getElementById("errorTo");
+
+if(from>to){
+    errorFrom.textContent="please enter the start date bigger than end date "
+     errorTo.textContent="please enter the end date smaller than start date  "
+     valid=false
+}
+
+else{
+    errorFrom.textContent=""
+     errorTo.textContent=""
+      data.exp.from = from;
+       data.exp.to = to;
+}
+
+
+
+
+
+
         
         
         if (valid) {
@@ -189,7 +214,8 @@ if (workerForm) {
             workers.push({
                 name: data.preview.name,
                 role: data.preview.role,
-                company: data.preview.company,
+                companyExperience: data.exp.companyExperience,
+roleExperience:data.exp.roleExperience,
                 email: data.preview.email,
                 phone: data.preview.phone,
                 imgUrl:data.preview.imgUrl,
@@ -243,7 +269,7 @@ btnExperience.addEventListener('click', (e) => {
         <div class="flex items-center justify-between border border-green-200 w-full bg-bleu-200 text-black-500 p-2 m-2 rounded-lg shadow-sm">
             <span class="font-medium">Company: <span class="text-gray-500">${companyExperience}</span><br>Role: <span class="text-gray-500">${roleExperience}</span><br>From:<span class="text-gray-500">${from}</span> To:<span class="text-gray-500">${to}</span></span>
             <div class="flex gap-2">
-                <button class="btn px-3 py-1 bg-red-600 text-white rounded-md text-sm hover:bg-red-800">supprimer</button>
+                <button class="btn px-3 py-1 bg-red-600 text-white rounded-md text-sm hover:bg-red-800">Delete</button>
             </div>
         </div>
     `;
