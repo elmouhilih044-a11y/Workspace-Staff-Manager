@@ -30,7 +30,7 @@ function displayWorkers() {
      
         card.innerHTML = `
             <div class="flex items-center gap-3 flex-1">
-                <div class="w-10 h-10 overflow-hidden rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-semibold text-sm">
+                <div class="w-10 h-10 overflow-hidden rounded-full  flex items-center justify-center">
                      <img src = ${worker.imgUrl} alt = ${worker.name} image class="rounded full w-full h-full object-cover">
                 </div>
               
@@ -121,17 +121,25 @@ if (workerForm) {
             errorName.textContent = "";
             data.preview.name = Name;
         }
+
+// Validation role principal
+const role = document.getElementById("role").value;
+if (role) {
+    data.preview.role = role;
+}
+
+
         
         // Validation role
-        const role = document.getElementById("role").value;
-        const errorRole = document.getElementById("errorRole");
+        const roleExperience = document.getElementById("roleExperience").value;
+        const errorRoleExperience = document.getElementById("errorRoleExperience");
 
-        if (role === "") {
-            errorRole.textContent = "Please select a role";
+        if (roleExperience === "") {
+           errorRoleExperience.textContent = "Please select a role";
             valid = false;
         } else {
-            errorRole.textContent = "";
-            data.preview.role = role;
+           errorRoleExperience.textContent = "";
+            data.exp.roleExperience = roleExperience;
         }
         
         // Validation company
