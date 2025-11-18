@@ -8,6 +8,7 @@ const workerForm = document.getElementById('workerForm');
 const sidebar = document.querySelector('aside');
 
 
+
 // Array to store all workers
 let workers = [];
 let data = {
@@ -24,16 +25,15 @@ function displayWorkers() {
     workers.map((worker, index) => {
         const card = document.createElement('div');
         card.className = 'worker-card bg-white p-4 rounded-lg mb-3 border border-gray-200 hover:bg-gray-50 transition cursor-pointer flex items-center justify-between';
-     console.log("worker")   
-     console.log(worker)   
-     const initials = worker.name.substring(0, 2).toUpperCase();
+     
+     
      
         card.innerHTML = `
             <div class="flex items-center gap-3 flex-1">
-                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-semibold text-sm">
-                   ${initials}
+                <div class="w-10 h-10 overflow-hidden rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-semibold text-sm">
+                     <img src = ${worker.imgUrl} alt = ${worker.name} image class="rounded full w-full h-full object-cover">
                 </div>
-                <img src = ${worker.imgUrl} alt = ${worker.name} image >
+              
                 <div>
                     <h3 class="font-semibold text-gray-800 text-sm">${worker.name}</h3>
                     <p class="text-xs text-gray-500">${worker.role}</p>
@@ -94,16 +94,17 @@ if (workerForm) {
     workerForm.addEventListener('submit', (e) => {
         e.preventDefault();
        
+         const imgUrl =document.getElementById('imgUrl').value;
         
         let valid = true;
         
-        const imgUrl =document.getElementById('imgUrl').value;
-        console.log("imgUrl: "+ imgUrl)
+       
         if(imgUrl === ""){
-            console.log("image vide")
+            alert("image vide")
             valid = false;
         }else{
             valid = true 
+            data.preview.imgUrl=imgUrl;
         }
         // Validation name
         const Name = document.getElementById("name").value;
@@ -208,8 +209,7 @@ else{
         
         if (valid) {
             // Add worker to array
-            console.log("data.preview.imgUrl: "+data.preview.imgUrl)
-            console.log("imgUrl: "+imgUrl)
+           
 
             workers.push({
                 name: data.preview.name,
@@ -221,8 +221,6 @@ roleExperience:data.exp.roleExperience,
                 imgUrl:data.preview.imgUrl,
             });
             
-            console.log('Worker saved!', data);
-            console.log('All workers:', workers);
             
           
             displayWorkers();
