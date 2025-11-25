@@ -11,8 +11,8 @@ const workerDetailsContent = document.getElementById('workerDetailsContent');
 
 // Data storage
 let workers = [];
-let currentWorkerData = {
-    basicInfo: {},
+let workerData = {
+    info: {},
     experiences: []
 };
 
@@ -26,7 +26,7 @@ const zoneAccessRules = {
     'archivesRoom': ['Receptionist', 'Manager', 'IT Guy', 'Security', 'Other']
 };
 
-// Room names for display 
+// Noms des salles qui s’affichent à l’écran
 const roomNames = {
     'conferenceRoom': 'Salle de conférence',
     'serverRoom': 'Salle des serveurs',
@@ -38,9 +38,9 @@ const roomNames = {
 
 // Highlight empty zones with red background
 function highlightEmptyZones() {
-    const restrictedZones = ['receptionRoom', 'serverRoom', 'securityRoom', 'archivesRoom'];
+    const necessaryZones = ['receptionRoom', 'serverRoom', 'securityRoom', 'archivesRoom'];
     
-    restrictedZones.forEach(zoneId => {
+    necessaryZones.forEach(zoneId => {
         const zone = document.getElementById(zoneId);
         if (!zone) return;
         
@@ -54,7 +54,7 @@ function highlightEmptyZones() {
     });
 }
 
-// Display worker details in modal
+// Afficher les détails d’un travailleur dans une fenêtre (modal)
 function displayWorkerDetails(worker) {
     let experiencesHTML = '';
     
@@ -90,12 +90,12 @@ function displayWorkerDetails(worker) {
     `;
 }
 
-// Display unassigned workers in sidebar
+// Afficher les travailleurs non assignés dans la barre latérale
 function displayWorkersInSidebar() {
     const existingCards = sidebar.querySelectorAll('.worker-card');
     existingCards.forEach(card => card.remove());
 
-    // Only show workers not assigned to any zone
+  // Afficher seulement les travailleurs non assignés à une salle
     workers.forEach((worker) => {
         if (worker.assignedZone) return;
 
@@ -129,7 +129,7 @@ function displayWorkersInSidebar() {
     });
 }
 
-// Display workers assigned to zones
+// Afficher les travailleurs assignés dans leurs salles
 function displayWorkersInZones() {
        
     const allZones = ['conferenceRoom', 'serverRoom', 'securityRoom', 'receptionRoom', 'staffRoom', 'archivesRoom'];
@@ -138,11 +138,10 @@ function displayWorkersInZones() {
         const zone = document.getElementById(zoneId);
         if (!zone) return;
         
-        // Remove old worker displays
+        // Effacer les anciens travailleurs affichés
         const oldWorkers = zone.querySelectorAll('.worker-in-zone');
         oldWorkers.forEach(w => w.remove());
-        
-        // Find workers assigned to this zone
+           // Chercher les travailleurs assignés à cette salle
         workers.forEach(worker => {
             if (worker.assignedZone === zoneId) {
                 const workerDiv = document.createElement('div');
@@ -168,7 +167,7 @@ function displayWorkersInZones() {
  
 }
 
-// Remove worker from assigned zone
+// Enlever un travailleur d’une salle
 function unassignWorkerFromZone(workerId) {
     const worker = workers.find(w => w.id === workerId);
     if (worker) {
@@ -178,10 +177,9 @@ function unassignWorkerFromZone(workerId) {
     }
 }
 window.unassignWorkerFromZone = unassignWorkerFromZone;
-
-// Assign worker to a zone
+// Assigner un travailleur à une salle
 function assignWorkerToZone(zoneId) {
-    // Find available workers for this zone (matching role and not already assigned)
+    // Chercher les travailleurs disponibles pour cette salle
     const availableWorkers = workers.filter(worker => {
         if (worker.assignedZone) return false;
         return zoneAccessRules[zoneId].includes(worker.role);
@@ -191,8 +189,7 @@ function assignWorkerToZone(zoneId) {
         alert('No available workers for this zone!');
         return;
     }
-
-    // Create selection modal
+    // Créer une petite fenêtre (modal) pour choisir un travailleur
     const modal = document.createElement('div');
     modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
     modal.innerHTML = `
@@ -229,7 +226,7 @@ function assignWorkerToZone(zoneId) {
 }
 window.assignWorkerToZone = assignWorkerToZone;
 
-// Delete worker permanently
+// Supprimer un travailleur définitivement
 function deleteWorker(workerId) {
     const index = workers.findIndex(w => w.id === workerId);
     if (index > -1) {
@@ -240,7 +237,7 @@ function deleteWorker(workerId) {
 }
 window.deleteWorker = deleteWorker;
 
-// Setup zone assignment buttons
+// Préparer les boutons d’assignation des salles
 document.addEventListener('DOMContentLoaded', () => {
     const zoneButtons = document.querySelectorAll('.zone .assign-button');
     zoneButtons.forEach(button => {
@@ -262,14 +259,14 @@ if (BtnAddWorker) {
     });
 }
 
-// Toggle experience form visibility
+// Montrer ou cacher la partie "Experience"
 if (toggleExperienceButton) {
     toggleExperienceButton.addEventListener('click', () => {
         experienceForm.classList.toggle('hidden');
     });
 }
 
-// Close modals
+// Fermer les fenêtres (modals)
 if (closeModalButtons) {
     closeModalButtons.forEach((button) => {
         button.addEventListener('click', () => {
@@ -309,12 +306,12 @@ if (workerForm) {
             isValid = false;
         } else {
             nameError.textContent = "";
-            currentWorkerData.basicInfo.name = name;
+            workerData.info.name = name;
         }
 
         // Get role
         const role = document.getElementById("workerRole").value;
-        currentWorkerData.basicInfo.role = role;
+        workerData.info.role = role;
 
         // Validate image URL
         const imageUrl = document.getElementById('workerImage').value.trim();
@@ -325,7 +322,7 @@ if (workerForm) {
             isValid = false;
         } else {
             imageError.textContent = "";
-            currentWorkerData.basicInfo.imageUrl = imageUrl;
+            workerData.info.imageUrl = imageUrl;
         }
 
         // Validate email
@@ -341,7 +338,7 @@ if (workerForm) {
             isValid = false;
         } else {
             emailError.textContent = "";
-            currentWorkerData.basicInfo.email = email;
+            workerData.info.email = email;
         }
 
         // Validate phone
@@ -357,19 +354,19 @@ if (workerForm) {
             isValid = false;
         } else {
             phoneError.textContent = "";
-            currentWorkerData.basicInfo.phone = phone;
+            workerData.info.phone = phone;
         }
 
         // If all valid, add worker
         if (isValid) {
             workers.push({
                 id: Date.now(),
-                name: currentWorkerData.basicInfo.name,
-                role: currentWorkerData.basicInfo.role,
-                experiences: [...currentWorkerData.experiences],
-                email: currentWorkerData.basicInfo.email,
-                phone: currentWorkerData.basicInfo.phone,
-                imageUrl: currentWorkerData.basicInfo.imageUrl,
+                name: workerData.info.name,
+                role: workerData.info.role,
+                experiences: [...workerData.experiences],
+                email: workerData.info.email,
+                phone: workerData.info.phone,
+                imageUrl: workerData.info.imageUrl,
                 assignedZone: null
             });
 
@@ -380,9 +377,9 @@ if (workerForm) {
             workerForm.reset();
             clearAllErrors();
 
-            // Reset current worker data
-            currentWorkerData = {
-                basicInfo: {},
+           // Réinitialiser les données temporaires
+            workerData = {
+                info: {},
                 experiences: []
             };
             
@@ -391,7 +388,7 @@ if (workerForm) {
     });
 }
 
-// Add experience to current worker
+// Ajouter une expérience à un travailleur
 const addExperienceButton = document.getElementById("addExperienceButton");
 
 if (addExperienceButton) {
@@ -408,7 +405,7 @@ if (addExperienceButton) {
             return;
         }
 
-        currentWorkerData.experiences.push({ company, role, from, to });
+        workerData.experiences.push({ company, role, from, to });
 
         const list = document.getElementById("experienceList");
         const listItem = document.createElement("li");
@@ -428,18 +425,17 @@ if (addExperienceButton) {
         `;
 
         listItem.querySelector(".delete-exp").addEventListener('click', () => {
-            const index = currentWorkerData.experiences.findIndex(
+            const index = workerData.experiences.findIndex(
                 exp => exp.role === role && exp.company === company && exp.from === from
             );
             if (index > -1) {
-                currentWorkerData.experiences.splice(index, 1);
+                workerData.experiences.splice(index, 1);
             }
             listItem.remove();
         });
 
         list.appendChild(listItem);
-        
-        // Clear experience form fields
+         // Vider les champs du formulaire d'expérience
         document.getElementById("experienceCompany").value = "";
         document.getElementById("experienceRole").value = "";
         document.getElementById("experienceFrom").value = "";
